@@ -1,0 +1,8 @@
+railwayTO.db
+railwayTO.s4db
+railwayTO.sqlite3
+RailwayTicketOffice.iml
+.idea/
+target/
+src/main/lib/
+src/main/META-INF/
