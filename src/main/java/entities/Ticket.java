@@ -1,13 +1,12 @@
 package entities;
 
-import java.util.Date;
-
 public class Ticket {
     private int id;
     private int trainNumber;
     private String departureStation;
     private String arrivalStation;
-    private Date departureDateTime;
+    private String departureDate;
+    private String departureTime;
 
     public Ticket() {
     }
@@ -44,12 +43,20 @@ public class Ticket {
         this.arrivalStation = arrivalStation;
     }
 
-    public Date getDepartureDateTime() {
-        return departureDateTime;
+    public String getDepartureDate() {
+        return departureDate;
     }
 
-    public void setDepartureDateTime(Date departureDateTime) {
-        this.departureDateTime = departureDateTime;
+    public void setDepartureDate(String departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
     }
 
     @Override
@@ -59,7 +66,8 @@ public class Ticket {
                 ", trainNumber=" + trainNumber +
                 ", departureStation='" + departureStation + '\'' +
                 ", arrivalStation='" + arrivalStation + '\'' +
-                ", departureDateTime=" + departureDateTime +
+                ", departureDate='" + departureDate + '\'' +
+                ", departureTime='" + departureTime + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Passenger;
+import entities.Ticket;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,48 @@ public class SQLitePassengerDAO implements PassengerDaoInterface {
     private Connection conn = connection.getConnection();
 
     public Passenger getByPhoneNumber(String phoneNumber) throws SQLException {
-        return null;
+        Passenger passenger = new Passenger();
+        st = conn.prepareStatement("select * from passengers where phone_number = ?;");
+        st.setString(1, phoneNumber);
+        rs = st.executeQuery();
+        if (rs.next()) {
+            passenger.setId(rs.getInt("id"));
+            passenger.setFirstName(rs.getString("first_name"));
+            passenger.setSecondName(rs.getString("second_name"));
+            passenger.setPhoneNumber(rs.getString("phone_number"));
+        }
+        connection.closeConnection(rs, st, conn);
+        return passenger;
+    }
+
+    public Passenger getByFirstName(String firstName) throws SQLException {
+        Passenger passenger = new Passenger();
+        st = conn.prepareStatement("select * from passengers where first_name = ?;");
+        st.setString(1, firstName);
+        rs = st.executeQuery();
+        if (rs.next()) {
+            passenger.setId(rs.getInt("id"));
+            passenger.setFirstName(rs.getString("first_name"));
+            passenger.setSecondName(rs.getString("second_name"));
+            passenger.setPhoneNumber(rs.getString("phone_number"));
+        }
+        connection.closeConnection(rs, st, conn);
+        return passenger;
+    }
+
+    public Passenger getBySecondName(String secondName) throws SQLException {
+        Passenger passenger = new Passenger();
+        st = conn.prepareStatement("select * from passengers where second_name = ?;");
+        st.setString(1, secondName);
+        rs = st.executeQuery();
+        if (rs.next()) {
+            passenger.setId(rs.getInt("id"));
+            passenger.setFirstName(rs.getString("first_name"));
+            passenger.setSecondName(rs.getString("second_name"));
+            passenger.setPhoneNumber(rs.getString("phone_number"));
+        }
+        connection.closeConnection(rs, st, conn);
+        return passenger;
     }
 
     public int create(Passenger entity) throws SQLException {
@@ -25,9 +67,6 @@ public class SQLitePassengerDAO implements PassengerDaoInterface {
 
     public Passenger getById(int id) throws SQLException {
         Passenger passenger = new Passenger();
-        if (passenger == null) {
-            System.out.println("passenger = null");
-        }
         st = conn.prepareStatement("select * from passengers where id = ?;");
         st.setInt(1, id);
         rs = st.executeQuery();
@@ -49,7 +88,19 @@ public class SQLitePassengerDAO implements PassengerDaoInterface {
         return 0;
     }
 
-    public ArrayList<Passenger> readAll() {
-        return null;
+    public ArrayList<Passenger> readAll() throws SQLException {
+        ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+        st = conn.prepareStatement("select * from passengers;");
+        rs = st.executeQuery();
+        while (rs.next()) {
+            Passenger passenger = new Passenger();
+            passenger.setId(rs.getInt("id"));
+            passenger.setFirstName(rs.getString("first_name"));
+            passenger.setSecondName(rs.getString("second_name"));
+            passenger.setPhoneNumber(rs.getString("phone_number"));
+            passengers.add(passenger);
+        }
+        connection.closeConnection(rs, st, conn);
+        return passengers;
     }
 }

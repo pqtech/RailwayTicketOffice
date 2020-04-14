@@ -4,4 +4,4 @@ railwayTO.sqlite3
 RailwayTicketOffice.iml
 .idea/
 target/
-src/main/lib/
+src/main/java/lib/

@@ -8,6 +8,6 @@ public interface DaoInterface<T> {
     T getById(int id) throws SQLException;
     int update(T entity) throws SQLException;
     int deleteById(int id) throws SQLException;
-    ArrayList<T> readAll();
+    ArrayList<T> readAll() throws SQLException;
 
 }
