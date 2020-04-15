@@ -1,9 +1,7 @@
 package services;
 
-import dao.PassengerDaoInterface;
 import dao.SQLitePassengerDAO;
 import dao.SQLiteTicketDAO;
-import dao.TicketDaoInterface;
 import entities.Passenger;
 import entities.Ticket;
 

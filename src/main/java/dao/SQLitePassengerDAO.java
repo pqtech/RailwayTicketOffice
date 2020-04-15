@@ -1,7 +1,6 @@
 package dao;
 
 import entities.Passenger;
-import entities.Ticket;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,38 +30,48 @@ public class SQLitePassengerDAO implements PassengerDaoInterface {
         return passenger;
     }
 
-    public Passenger getByFirstName(String firstName) throws SQLException {
-        Passenger passenger = new Passenger();
+    public ArrayList<Passenger> getByFirstName(String firstName) throws SQLException {
+        ArrayList<Passenger> passengers = new ArrayList<Passenger>();
         st = conn.prepareStatement("select * from passengers where first_name = ?;");
         st.setString(1, firstName);
         rs = st.executeQuery();
-        if (rs.next()) {
+        while (rs.next()) {
+            Passenger passenger = new Passenger();
             passenger.setId(rs.getInt("id"));
             passenger.setFirstName(rs.getString("first_name"));
             passenger.setSecondName(rs.getString("second_name"));
             passenger.setPhoneNumber(rs.getString("phone_number"));
+            passengers.add(passenger);
         }
         connection.closeConnection(rs, st, conn);
-        return passenger;
+        return passengers;
     }
 
-    public Passenger getBySecondName(String secondName) throws SQLException {
-        Passenger passenger = new Passenger();
+    public ArrayList<Passenger> getBySecondName(String secondName) throws SQLException {
+        ArrayList<Passenger> passengers = new ArrayList<Passenger>();
         st = conn.prepareStatement("select * from passengers where second_name = ?;");
         st.setString(1, secondName);
         rs = st.executeQuery();
-        if (rs.next()) {
+        while (rs.next()) {
+            Passenger passenger = new Passenger();
             passenger.setId(rs.getInt("id"));
             passenger.setFirstName(rs.getString("first_name"));
             passenger.setSecondName(rs.getString("second_name"));
             passenger.setPhoneNumber(rs.getString("phone_number"));
+            passengers.add(passenger);
         }
         connection.closeConnection(rs, st, conn);
-        return passenger;
+        return passengers;
     }
 
     public int create(Passenger entity) throws SQLException {
-        return 0;
+        st = conn.prepareStatement("insert into passengers (first_name, second_name, phone_number) values(?,?,?);");
+        st.setString(1, entity.getFirstName());
+        st.setString(2, entity.getSecondName());
+        st.setString(3, entity.getPhoneNumber());
+        int result = st.executeUpdate();
+        connection.closeConnection(st, conn);
+        return result;
     }
 
     public Passenger getById(int id) throws SQLException {
@@ -81,11 +90,22 @@ public class SQLitePassengerDAO implements PassengerDaoInterface {
     }
 
     public int update(Passenger entity) throws SQLException {
-        return 0;
+        st = conn.prepareStatement("update passengers set first_name = ?, second_name = ?, phone_number = ? where id = ?;");
+        st.setString(1, entity.getFirstName());
+        st.setString(2, entity.getSecondName());
+        st.setString(3, entity.getPhoneNumber());
+        st.setInt(4, entity.getId());
+        int result = st.executeUpdate();
+        connection.closeConnection(st, conn);
+        return result;
     }
 
     public int deleteById(int id) throws SQLException {
-        return 0;
+        st = conn.prepareStatement("delete from passengers where id = ?;");
+        st.setInt(1, id);
+        int result = st.executeUpdate();
+        connection.closeConnection(st, conn);
+        return result;
     }
 
     public ArrayList<Passenger> readAll() throws SQLException {
