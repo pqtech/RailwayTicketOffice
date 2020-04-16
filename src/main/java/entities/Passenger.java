@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class Passenger {
     private int id;
     private String firstName;
@@ -49,5 +51,21 @@ public class Passenger {
                 ", secondName='" + secondName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return id == passenger.id &&
+                firstName.equals(passenger.firstName) &&
+                secondName.equals(passenger.secondName) &&
+                phoneNumber.equals(passenger.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, secondName, phoneNumber);
     }
 }

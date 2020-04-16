@@ -1,6 +1,29 @@
 package entities;
 
+import java.util.Objects;
+
 public class Order {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id == order.id &&
+                passengerId == order.passengerId &&
+                ticketId == order.ticketId &&
+                trainNumber == order.trainNumber &&
+                Objects.equals(departureStation, order.departureStation) &&
+                Objects.equals(arrivalStation, order.arrivalStation) &&
+                Objects.equals(departureDate, order.departureDate) &&
+                Objects.equals(departureTime, order.departureTime) &&
+                Objects.equals(passengerArrivalStation, order.passengerArrivalStation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, passengerId, ticketId, trainNumber, departureStation, arrivalStation, departureDate, departureTime, passengerArrivalStation);
+    }
+
     private int id;
     private int passengerId;
     private int ticketId;

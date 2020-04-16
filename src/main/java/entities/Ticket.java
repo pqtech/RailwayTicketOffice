@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class Ticket {
     private int id;
     private int trainNumber;
@@ -69,5 +71,23 @@ public class Ticket {
                 ", departureDate='" + departureDate + '\'' +
                 ", departureTime='" + departureTime + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return id == ticket.id &&
+                trainNumber == ticket.trainNumber &&
+                departureStation.equals(ticket.departureStation) &&
+                arrivalStation.equals(ticket.arrivalStation) &&
+                departureDate.equals(ticket.departureDate) &&
+                departureTime.equals(ticket.departureTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, trainNumber, departureStation, arrivalStation, departureDate, departureTime);
     }
 }
